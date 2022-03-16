@@ -368,3 +368,4 @@ MigrationBackup/
 *.sln
 *.vcxproj*
 CHM_sem2_lab1_HermitInterpolation/test.c
+CHM_sem2_lab1/test.c
