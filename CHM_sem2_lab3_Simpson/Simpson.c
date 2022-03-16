@@ -98,7 +98,8 @@ int main() {
 
 #ifndef ITERATIONS
 	char* hFileName = "C:/Users/z.kate/Desktop/4 семестр/CHM/data/lab3_Data.csv";
-	FILE* dataFile = fopen(hFileName, "a");
+	char* FileNameBroken = "C:/Users/z.kate/Desktop/4 семестр/CHM/data/lab3_DataModule.csv";
+	FILE* dataFile = fopen(FileNameBroken, "a");
 	double a = 1.2;
 	double b = 2;
 	int from = 2, to = 50000;
@@ -109,7 +110,7 @@ int main() {
 	FillFile(dataFile, hmass, amount);
 	for (int k = 0, n = from; n <= to; n = n * 2, k++) {
 		double* xmass = SplitInterval(a, b, n);
-		double res = Simpson(xmass, n, f);
+		double res = Simpson(xmass, n, g);
 		resmass[k] = res;
 	}
 	FillFile(dataFile, resmass, amount);
