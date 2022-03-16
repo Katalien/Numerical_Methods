@@ -5,7 +5,7 @@
 
 // funtion
 double f(double x) {
-	return fabs(x*x*x - exp(x) + 1);
+	return sqrt(1 + 2 * x * x - x * x * x);
 }
 
 // File and print function
@@ -44,14 +44,36 @@ void PrintMass(double* mass, int size) {
 	printf("\n");
 }
 
-double CountH(double a, double b) {
-	return (b - a) / 2;
+double CountH(double a, double b, int n) {
+	return (b - a) / n;
 }
 
+double CountUnevenSumm(double* xmass, int n) {
+	double summ = 0;
+	printf("\nuneven:");
+	for (int k = 1; k <= (n / 2); k++) {
+		printf("%lf ", f(xmass[2 * k - 1]));
+		summ += f(xmass[2 * k - 1]);
+	}
+	return summ;
+}
 
-double Simpson(double* xmass) {
-	double h = CountH(xmass[0], xmass[2]);
-	double res = (h / 3) * (f(xmass[0]) + 4 * f(xmass[1]) + f(xmass[2]));
+double CountEvenSumm(double* xmass, int n) {
+	double summ = 0;
+	printf("\neven:");
+	for (int k = 1; k <= ((n / 2) - 1); k++) {
+		printf("%lf ", f(xmass[2 * k]));
+		summ += f(xmass[2 * k]);
+	}
+	return summ;
+}
+
+double Simpson(double* xmass, int n) {
+	double h = CountH(xmass[0], xmass[n], n);
+	printf("%lf\n", h);
+	double evenSumm = CountEvenSumm(xmass, n);
+	double unevenSumm = CountUnevenSumm(xmass, n);
+	double res = (h / 3) * (f(xmass[0]) + f(xmass[n]) + 4 * unevenSumm + 2 * evenSumm);
 	return res;
 }
 
@@ -61,11 +83,10 @@ int main() {
 #endif // ITERATIONS
 
 #ifndef ITERATIONS
-	double xmass[3] = { -0.2, 0, 0.2 };
-	printf("%lf, %lf, %lf", f(xmass[0]), f(xmass[1]), f(xmass[2]));
-	printf("\n%lf", Simpson(xmass));
+	double a = -2;
+	double b = 2;
+	int N = 4;  // 2N intervals on fixed gap
+	double xmass[5] = { 1.2, 1.4, 1.6, 1.8, 2 };
+	printf("\n%lf", Simpson(xmass, N));
 #endif // ITERATIONS
-
-
-
 }
